@@ -11,8 +11,11 @@
                     <tr>
                         <th>Code</th>
                         <th class="text-right">Share Lot</th>
-                        <th class="text-right">Last Price</th>
                         <th class="text-right">Avg Price</th>
+                        <th class="text-right">Last Price (market)</th>
+
+                        <th class="text-right">Market Max Bull</th>
+                        <th class="text-right">Market Max Bear</th>
                     </tr>
                 </thead>
 
@@ -20,12 +23,16 @@
                     <tr v-for="d in portfolio">
                         <td>
                             <a :href="'https://www.google.com/search?q=IDX%3A' + d.emiten.code" target="_blank">
-                            @{{ d.emiten.code }}
+                                @{{ d.emiten.code }}
                             </a>
                         </td>
                         <td class="text-right">@{{ d.share_lot }}</td>
-                        <td class="text-right">@{{ d.last_price }}</td>
                         <td class="text-right">@{{ d.avg_price }}</td>
+                        <td class="text-right">@{{ d.last_price }}</td>
+
+
+                        <td class="text-right text-success">@{{ Number(d.last_price) + Number(d.last_price * 25 / 100) }}</td>
+                        <td class="text-right text-danger">@{{ Number(d.last_price) - Number(d.last_price * 7 / 100)}}</td>
                     </tr>
                 </tbody>
 
@@ -40,7 +47,7 @@
                     <tr v-for="d in portfolio">
                         <td>
                             <a :href="'https://www.google.com/search?q=IDX%3A' + d.emiten.code" target="_blank">
-                            @{{ d.emiten.code }}
+                                @{{ d.emiten.code }}
                             </a>
                         </td>
                         <td class="text-right">@{{ d.share_lot }}</td>
