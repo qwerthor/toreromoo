@@ -15,4 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@dashboard')->name('home');
 
+Route::get('/portfolio', 'PortfolioController@index');
+Route::get('/emiten', 'EmitenController@index');
+
 Route::post('/pd/portfolio', 'PortfolioController@parsePortfolio');
