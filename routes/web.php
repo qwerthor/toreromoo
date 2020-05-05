@@ -19,3 +19,5 @@ Route::get('/portfolio', 'PortfolioController@index');
 Route::get('/emiten', 'EmitenController@index');
 
 Route::post('/pd/portfolio', 'PortfolioController@parsePortfolio');
+
+Route::get('/pd/gettoploss', 'EmitenController@getLoss');

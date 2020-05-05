@@ -16,7 +16,6 @@ class PortfolioController extends Controller
     public function parsePortfolio(Request $request){
         $parsed = ParserPD::parsePortfolionJson($request->get('data'));
 
-
         Portfolio::truncate();
         if (Portfolio::insert($parsed)){
             return ['success' => 1];

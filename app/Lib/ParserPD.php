@@ -15,7 +15,8 @@ class ParserPD {
     }
 
     public static function parseGainLoss($html){
-
+        //Curl post
+        
     }
 
     public static function parsePortfolionJson($json){

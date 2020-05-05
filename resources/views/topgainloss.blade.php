@@ -11,9 +11,9 @@
                 </thead>
 
                 <tbody>
-                    <tr v-for="d in emiten">
+                    <tr v-for="d in gainloss">
                         <td>
-                            <a :href="'https://www.google.com/search?q=IDX%3A' + d.code" target="_blank" class="text-white">
+                            <a :href="'https://www.google.com/search?q=IDX%3A' + d.code" target="_blank">
                                 @{{ d.code }}
                             </a>
                         </td>
@@ -32,18 +32,14 @@
 <script src="{{ asset('js/axios.min.js') }}"></script>
 
 <script>
-    var emiten = @json($emiten);
+    var gainloss = @json($gainloss);
 
     var vm = new Vue({
         el: '#app',
         data: {
-            emiten: emiten,
-
+            gainloss: gainloss
         },
         methods: {
-
-        },
-        computed: {
 
         }
 
