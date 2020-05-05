@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 class PortfolioController extends Controller
 {
     public function index(){
-
+        return view('portfolio');
     }
-    
+
     public function parsePortfolio(Request $request){
         $parsed = ParserPD::parsePortfolionJson($request->get('data'));
 

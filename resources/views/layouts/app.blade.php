@@ -33,11 +33,11 @@
 
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Portfolio</a>
+                    <a class="nav-link" href="{{ action('PortfolioController@index') }}">Portfolio</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Emiten</a>
+                    <a class="nav-link" href="{{ action('EmitenController@index') }}">Emiten</a>
                 </li>
 
                 <li class="nav-item">
