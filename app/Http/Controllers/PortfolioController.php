@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 class PortfolioController extends Controller
 {
     public function index(){
-        return view('portfolio');
+        $data['portfolio'] = Portfolio::with('emiten')->get();
+        return view('portfolio', $data);
     }
 
     public function parsePortfolio(Request $request){
