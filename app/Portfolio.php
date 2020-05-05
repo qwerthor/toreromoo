@@ -8,6 +8,7 @@ class Portfolio extends Model
 {
     protected $table = 'portfolio';
     protected $primaryKey = 'portfolio_id';
+    public $timestamps = false;
 
     public function emiten(){
         return $this->belongsTo('App\Emiten', 'emiten_id', 'emiten_id');

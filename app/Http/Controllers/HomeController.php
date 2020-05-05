@@ -9,10 +9,6 @@ class HomeController extends Controller
 {
     //
     public function dashboard(){
-        ParserPD::parsePortfolio("somehtmlstring");
-        
         return view('dashboard');
-
-
     }
 }

@@ -14,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@dashboard')->name('home');
+
+Route::post('/pd/portfolio', 'PortfolioController@parsePortfolio');
