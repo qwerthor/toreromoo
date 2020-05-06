@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Emiten;
 use App\Kv;
+use App\Lib\ParserPD;
 use Illuminate\Http\Request;
 
 class EmitenController extends Controller
@@ -49,7 +50,6 @@ class EmitenController extends Controller
 
         curl_close($ch);
 
-
-        dump($result);
+        ParserPD::parseGainLoss($result);
     }
 }
