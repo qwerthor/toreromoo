@@ -45,7 +45,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Top Loss</a>
+                    <a class="nav-link" href="{{ action('EmitenController@toploss') }}">Top Loss</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">More Moo Menu</a>

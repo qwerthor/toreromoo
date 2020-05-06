@@ -30,7 +30,6 @@ class ParserPD
             $cols = $t->getElementsByTagName('td');
             if ($cols->length != 0){ 
                 $code = $cols[1]->getElementsByTagName('span')->item(0)->getElementsByTagName('span');
-
                 $nr['code'] = $code[0]->nodeValue;
                 $nr['code_name'] = $code[1]->nodeValue;
                 $nr['change_percent'] = $cols[2]->nodeValue;

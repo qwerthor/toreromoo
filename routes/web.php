@@ -18,6 +18,8 @@ Route::get('/', 'HomeController@dashboard')->name('home');
 Route::get('/portfolio', 'PortfolioController@index');
 Route::get('/emiten', 'EmitenController@index');
 
+Route::get('/toploss', 'EmitenController@toploss');
+
 Route::post('/pd/portfolio', 'PortfolioController@parsePortfolio');
 
 Route::get('/pd/gettoploss', 'EmitenController@getLoss');

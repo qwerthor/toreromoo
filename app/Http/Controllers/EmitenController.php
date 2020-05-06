@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Emiten;
 use App\Kv;
+use App\LeaderGainLoss;
 use App\Lib\ParserPD;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,9 @@ class EmitenController extends Controller
 
     public function toploss()
     {
-        return view('topgainloss');
+        $data['pdDirectPath'] = Kv::find('PD_STOCK_PATH')->value;
+        $data['gainloss'] = LeaderGainLoss::with('emiten')->get();
+        return view('topgainloss', $data);
     }
 
     public function getLoss()
@@ -50,6 +53,27 @@ class EmitenController extends Controller
 
         curl_close($ch);
 
-        ParserPD::parseGainLoss($result);
+        $parsed = ParserPD::parseGainLoss($result);
+        foreach($parsed as $p){
+            $e = Emiten::firstOrCreate(['code' => $p['code']]);
+            if (empty($e->name))
+            {
+                $e->name = $p['code_name'];
+                $e->save();
+            }
+
+            $l = new LeaderGainLoss();
+            $l->emiten_id = $e->emiten_id;
+            $l->change_percent = $p['change_percent'];
+            $l->change = $p['change'];
+            $l->close = str_replace(',', '', $p['close']);
+            $l->prev = str_replace(',', '', $p['prev']);
+            $l->high = str_replace(',', '', $p['high']);
+            $l->low = str_replace(',', '', $p['low']);
+            $l->high_date = date_create_from_format("d M Y", $p['high_date']);
+            $l->low_date = date_create_from_format("d M Y", $p['low_date']);
+
+            $l->save();
+        }
     }
 }
