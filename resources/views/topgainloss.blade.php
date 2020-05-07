@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-sm-12">
             <h1>Top Gain Loss</h1>
-            <table class="table table-sm table-dark" id="tableGL">
+            <table class="table table-sm table-dark table-hover" id="tableGL">
                 <thead>
                     <tr>
                         <td>Code</td>
@@ -17,18 +17,18 @@
                         <td class="text-right">Low</td>
                         <td>High Date</td>
                         <td>Low Date</td>
-
+                        <td class="text-right">Max Down (6.9%) *2</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="d in gainloss">
                         <td>
                             <a :href="'https://www.google.com/search?q=IDX%3A' + d.emiten.code" target="_blank" class="text-white">
-                                @{{ d.emiten.code }}
+                                @{{ d.emiten.code }}  @{{ d.emiten.name }}
                             </a>
 
                             <a :href="pdPath + d.emiten.code" target="_blank" class="text-white">
-                                Direct
+                                , Direct
                             </a>
                         </td>
                         <td class="text-right">@{{ d.change_percent}}</td>
@@ -39,6 +39,7 @@
                         <td class="text-right">@{{ d.low | nf}}</td>
                         <td>@{{ d.high_date}}</td>
                         <td>@{{ d.low_date}}</td>
+                        <td class="text-right">@{{ d.close - (d.close * 13.8 / 100) | nf}}</td>
                     </tr>
                 </tbody>
 
@@ -74,7 +75,7 @@
         },
         filters: {
             nf: function(value) {
-                return numeral(value).format('0,0.00');
+                return numeral(value).format('0,0');
             }
         }
 

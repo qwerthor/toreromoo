@@ -26,7 +26,7 @@
     <div class="row mt-3">
         <div class="col-sm-12">
             <h4>Other</h4>
-            <a href="parseGainLoss">Parse Gain Loss</a>
+            <a href="{{ action ('EmitenController@getLoss') }}">Parse Gain Loss</a>
         </div>
     </div>
 </div>

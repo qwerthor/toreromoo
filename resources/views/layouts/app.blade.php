@@ -56,7 +56,7 @@
     </nav>
     <div style="height: .2rem; background-color: #828282"></div>
 
-    <main role="main" class="container-lg mt-3" style="min-height: 75vh">
+    <main role="main" class="container-fluid mt-3" style="min-height: 75vh">
         @yield('content')
     </main>
 

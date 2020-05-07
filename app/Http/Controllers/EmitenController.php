@@ -31,7 +31,7 @@ class EmitenController extends Controller
         curl_setopt($ch, CURLOPT_URL, $path->value);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, "startDate=05+May+2020&endDate=06+May+2020&stockCode=IHSG%2C+R-LQ45X%2C+XISC%2C+TLKM%2C+BMRI%2C+BARU20%2C+BPRS4%2C+MNRC5%2C+AXRP4%2C+USD-IDR%2C+SGD-IDR%2C+GOLD-IDR&kriteriaPencarian=SELECTION&inputSelection=15&optGLValue=losers");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "startDate=06+May+2020&endDate=08+May+2020&stockCode=IHSG%2C+R-LQ45X%2C+XISC%2C+TLKM%2C+BMRI%2C+BARU20%2C+BPRS4%2C+MNRC5%2C+AXRP4%2C+USD-IDR%2C+SGD-IDR%2C+GOLD-IDR&kriteriaPencarian=SELECTION&inputSelection=11&optGLValue=losers");
         curl_setopt($ch, CURLOPT_ENCODING, 'gzip, deflate');
 
         $headers = array();
@@ -53,6 +53,7 @@ class EmitenController extends Controller
 
         curl_close($ch);
 
+        LeaderGainLoss::truncate();
         $parsed = ParserPD::parseGainLoss($result);
         foreach($parsed as $p){
             $e = Emiten::firstOrCreate(['code' => $p['code']]);
@@ -75,5 +76,7 @@ class EmitenController extends Controller
 
             $l->save();
         }
+
+        return redirect()->action('EmitenController@toploss');
     }
 }
