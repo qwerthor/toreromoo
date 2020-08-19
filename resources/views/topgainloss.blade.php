@@ -24,7 +24,7 @@
                     <tr v-for="d in gainloss">
                         <td>
                             <a :href="'https://www.google.com/search?q=IDX%3A' + d.emiten.code" target="_blank" class="text-white">
-                                @{{ d.emiten.code }}  @{{ d.emiten.name }}
+                                @{{ d.emiten.code }} @{{ d.emiten.name }}
                             </a>
 
                             <a :href="pdPath + d.emiten.code" target="_blank" class="text-white">
@@ -46,6 +46,28 @@
             </table>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col">
+            <div id="inDateStart"></div>
+            <input type="hidden" id="inputDateStart">
+        </div>
+
+        <div class="col">
+            <div id="inDateEnd"></div>
+            <input type="hidden" id="inputDateEnd">
+        </div>
+
+        <div class="col">
+            <button type="button" class="btn btn-danger" @click="processParse('loss')">Get Loss</button>
+            <button type="button" class="btn btn-success" @click="processParse('gain')">Get Gainers</button>
+            <button type="button" class="btn btn-primary" @click="processParse('all')">All</button>
+        </div>
+        <div class="col">
+            
+        </div>
+    </div>
+</div>
 </div>
 @endsection
 
@@ -55,6 +77,7 @@
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script src="{{ asset('js/numeral.min.js') }}"></script>
 <script src="{{ asset('js/datatables.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
 
 <script>
     var gainloss = @json($gainloss);
@@ -63,15 +86,35 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            gainloss: gainloss
+            gainloss: gainloss,
+            dpStart: null,
+            dpEnd: null,
         },
         mounted: function() {
             $('#tableGL').DataTable({
                 paging: false
             });
+
+            dpStart = $('#inDateStart').datepicker({
+                todayHighlight: true,
+            });
+
+            dpStart.datepicker('setDate', 'now');
+
+            dpEnd = $('#inDateEnd').datepicker({
+                todayHighlight: true,
+            });
+
+            dpEnd.datepicker('setDate', 'now');
         },
         methods: {
+            processParse: function(mode) {
+                var pStartDate = self.dpStart.datepicker('getFormattedDate');
+                var pEndDate = self.dpEnd.datepicker('getFormattedDate');
 
+                var ProcessURL = 'pd/gettoploss?start=' + pStartDate + '&end=' + pEndDate + '&mode=' + mode;
+                window.location.href = ProcessURL;
+            }
         },
         filters: {
             nf: function(value) {
@@ -82,4 +125,8 @@
     });
 </script>
 
+@endsection
+
+@section('css')
+<link href="{{ asset('css/bootstrap-datepicker3.standalone.min.css') }}" rel="stylesheet">
 @endsection

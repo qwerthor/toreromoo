@@ -23,15 +23,38 @@ class EmitenController extends Controller
         return view('topgainloss', $data);
     }
 
-    public function getLoss()
+    public function getLoss(Request $request)
     {
+        $date['start'] = $request->get('start');
+        $date['end'] = $request->get('end');
+        $mode = $request->get('mode');
+        
+        $date['start'] = \DateTime::createFromFormat('m/d/Y', $date['start']);
+        $date['end'] = \DateTime::createFromFormat('m/d/Y', $date['end']);
+
+        $date['start'] = $date['start']->format('d M Y');
+        $date['end'] = $date['end']->format('d M Y');
+
+        if ($mode == "gain") $mode = "gainers";
+        if ($mode == 'loss') $mode = "losers";
+
+        $startDate = $date['start'];
+        $endDate = $date['end'];
         $path = Kv::find('PD_PATH_GAINLOSS');
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $path->value);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, "startDate=06+May+2020&endDate=08+May+2020&stockCode=IHSG%2C+R-LQ45X%2C+XISC%2C+TLKM%2C+BMRI%2C+BARU20%2C+BPRS4%2C+MNRC5%2C+AXRP4%2C+USD-IDR%2C+SGD-IDR%2C+GOLD-IDR&kriteriaPencarian=SELECTION&inputSelection=11&optGLValue=losers");
+        //LQ45
+        //curl_setopt($ch, CURLOPT_POSTFIELDS, "startDate=11+May+2020&endDate=15+May+2020&stockCode=IHSG%2C+R-LQ45X%2C+XISC%2C+TLKM%2C+BMRI%2C+BARU20%2C+BPRS4%2C+MNRC5%2C+AXRP4%2C+USD-IDR%2C+SGD-IDR%2C+GOLD-IDR&kriteriaPencarian=SELECTION&inputSelection=11&optGLValue=losers");
+
+        //Kompas 100
+        
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "startDate=$startDate&endDate=$endDate&stockCode=IHSG%2C+R-LQ45X%2C+XISC%2C+TLKM%2C+BMRI%2C+BARU20%2C+BPRS4%2C+MNRC5%2C+AXRP4%2C+USD-IDR%2C+SGD-IDR%2C+GOLD-IDR&kriteriaPencarian=SELECTION&inputSelection=15&optGLValue=losers&startDate=$startDate&endDate=$endDate&stockCode=IHSG%2C+R-LQ45X%2C+XISC%2C+TLKM%2C+BMRI%2C+BARU20%2C+BPRS4%2C+MNRC5%2C+AXRP4%2C+USD-IDR%2C+SGD-IDR%2C+GOLD-IDR&kriteriaPencarian=SELECTION&inputSelection=15&optGLValue=$mode");
+
+        //param gainers untuk top gainers
+
         curl_setopt($ch, CURLOPT_ENCODING, 'gzip, deflate');
 
         $headers = array();

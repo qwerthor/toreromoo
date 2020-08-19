@@ -29,7 +29,7 @@
     <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
 
         <div class="d-flex navbar-expand">
-            <a class="navbar-brand" href="<?php echo route('home'); ?>">Keu. Iuran</a>
+            <a class="navbar-brand" href="<?php echo route('home'); ?>">Moo</a>
 
             <ul class="navbar-nav">
                 <li class="nav-item">
