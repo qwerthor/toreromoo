@@ -89,7 +89,7 @@ class EmitenController extends Controller
             $l = new LeaderGainLoss();
             $l->emiten_id = $e->emiten_id;
             $l->change_percent = $p['change_percent'];
-            $l->change = $p['change'];
+            $l->change = str_replace(',', '', $p['change']);
             $l->close = str_replace(',', '', $p['close']);
             $l->prev = str_replace(',', '', $p['prev']);
             $l->high = str_replace(',', '', $p['high']);
