@@ -2,10 +2,10 @@
 
 @section('content')
 <div id="app">
-    <div class="row">
-        <div class="col-sm-12">
+    <div class="row-fluid">
+        <div class="col">
             <h1>Top Gain Loss</h1>
-            <table class="table table-sm table-dark table-hover" id="tableGL">
+            <table class="table table-sm table-dark table-hover nowrap" id="tableGL">
                 <thead>
                     <tr>
                         <td>Code</td>
@@ -18,12 +18,14 @@
                         <td>High Date</td>
                         <td>Low Date</td>
                         <td class="text-right">Max Down (6.9%) *2</td>
+                        <td class="text-right">Low - Change</td>
+                        <td class="text-right">Close - Change</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="d in gainloss">
-                        <td>
-                            <a :href="'https://www.google.com/search?q=IDX%3A' + d.emiten.code" target="_blank" class="text-white">
+                        <td v-bind:class="{ 'bg-info' : d.checked == 1}">
+                            <a :href="'https://www.google.com/search?q=IDX%3A' + d.emiten.code" target="_blank" class="text-white" @click="changeRowColor(d)">
                                 @{{ d.emiten.code }} @{{ d.emiten.name }}
                             </a>
 
@@ -40,6 +42,8 @@
                         <td>@{{ d.high_date}}</td>
                         <td>@{{ d.low_date}}</td>
                         <td class="text-right">@{{ d.close - (d.close * 13.8 / 100) | nf}}</td>
+                        <td class="text-right">@{{ d.low - d.change | nf}}</td>
+                        <td class="text-right">@{{ d.close - d.change | nf}}</td>
                     </tr>
                 </tbody>
 
@@ -92,7 +96,8 @@
         },
         mounted: function() {
             $('#tableGL').DataTable({
-                paging: false
+                paging: false,
+                responsive: true,
             });
 
             dpStart = $('#inDateStart').datepicker({
@@ -114,6 +119,9 @@
 
                 var ProcessURL = 'pd/gettoploss?start=' + pStartDate + '&end=' + pEndDate + '&mode=' + mode;
                 window.location.href = ProcessURL;
+            }, 
+            changeRowColor: function(par){
+                par.checked = 1;
             }
         },
         filters: {

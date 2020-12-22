@@ -20,6 +20,11 @@ class EmitenController extends Controller
     {
         $data['pdDirectPath'] = Kv::find('PD_STOCK_PATH')->value;
         $data['gainloss'] = LeaderGainLoss::with('emiten')->get();
+
+        foreach ($data['gainloss'] as &$d){
+            $d->checked = 0;
+        }   
+
         return view('topgainloss', $data);
     }
 
